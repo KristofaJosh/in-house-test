@@ -1,0 +1,4 @@
+node_modules/*
+*.md
+src/setupTests.js
+src/reportWebVitals.js
