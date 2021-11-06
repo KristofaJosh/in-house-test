@@ -106,3 +106,17 @@ Somehow I want to be able to close the overlay again as well, but that's it, ok?
 
 I love dotfiles. So there's a few dotfiles here as well, and if I run that one non-default package.json script
 I'd love to see you respect my dotfiles :-)
+
+
+## Run this App
+```shell
+yarn 
+```
+Run the json server
+```
+yarn server
+```
+Run the app
+```
+yarn start
+```
