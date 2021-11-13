@@ -2,7 +2,7 @@ import './App.css';
 import DataTable from 'react-data-table-component';
 import {useEffect, useState} from "react";
 import styled from "styled-components/macro";
-import {fetchKittens} from "./helpers/api";
+import { fetchKittens} from "./helpers/api";
 import {caseInsensitiveSort, resolveKittenResponse} from "./helpers/utility";
 import Modal from "./component/modal";
 
@@ -24,7 +24,6 @@ const columns = [
   },
 ];
 
-
 function App() {
   const [kittens, setKittens] = useState([]);
   const [clickedRow, setClickedRow] = useState(null);
@@ -36,12 +35,11 @@ function App() {
   }
 
   useEffect(() => {
-    setLoading(true)
-    fetchKittens().then((res) => {
+    fetchKittens((res)=>{
       setLoading(false)
-      setKittens(res.data)
       setError('')
-    }).catch(err => {
+      setKittens(res.data)
+    }, (err) => {
       setError('Something has gone wrong!')
       setLoading(false)
     })
