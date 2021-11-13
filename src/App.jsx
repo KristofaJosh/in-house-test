@@ -9,18 +9,18 @@ import Modal from "./component/modal";
 const columns = [
   {
     name: 'Name',
-    selector: row => row.name,
+    selector: row => resolveKittenResponse(row).name,
     sortable: true,
     sortFunction: caseInsensitiveSort
 
   },
   {
     name: 'Age',
-    selector: row => row.age,
+    selector: row => resolveKittenResponse(row).age,
   },
   {
     name: 'Ninja Level',
-    selector: row => row.ninjaLevel,
+    selector: row => resolveKittenResponse(row).ninjaLevel,
     sortable: true,
   },
 ];
@@ -30,6 +30,7 @@ function App() {
   const [kittens, setKittens] = useState([]);
   const [clickedRow, setClickedRow] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('')
 
   const handleRowClick = (row) => {
     setClickedRow(row)
@@ -37,22 +38,15 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
-    fetchKittens.then((data) => {
+    fetchKittens().then((res) => {
       setLoading(false)
-      setKittens(resolveKittenResponse(data.results))
-      fetch('http://localhost:8080/kittens', {method: 'POST', headers:{'Content-Type': 'application/json'}, body: JSON.stringify(resolveKittenResponse(data.results))})
-    }).catch(()=>{
+      setKittens(res.data)
+      setError('')
+    }).catch(err => {
+      setError('Something has gone wrong!')
       setLoading(false)
     })
   }, [])
-
-  // if(loading){
-  //   return <TableStyling>
-  //     <div className="loading">
-  //       <h3>Please wait, fetching data...</h3>
-  //     </div>
-  //   </TableStyling>
-  // }
 
   return (
     <TableStyling className="container">
@@ -68,6 +62,7 @@ function App() {
       <div className="header">
         <h2>In House Frontend Challenge</h2>
         <p>solution</p>
+        {error && <small>{error}</small>}
       </div>
       <DataTable
         columns={columns}
@@ -91,6 +86,10 @@ const KittenModalStyling = styled.div`
 const TableStyling = styled.div`
   .header {
     margin-bottom: 40px;
+
+    > small {
+      color: red;
+    }
   }
 
   .rdt {
