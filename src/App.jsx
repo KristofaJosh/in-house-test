@@ -12,7 +12,6 @@ const columns = [
     selector: row => resolveKittenResponse(row).name,
     sortable: true,
     sortFunction: caseInsensitiveSort
-
   },
   {
     name: 'Age',
@@ -33,7 +32,7 @@ function App() {
   const [error, setError] = useState('')
 
   const handleRowClick = (row) => {
-    setClickedRow(row)
+    setClickedRow(resolveKittenResponse(row))
   }
 
   useEffect(() => {

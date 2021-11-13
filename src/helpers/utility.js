@@ -4,8 +4,8 @@
  * @param rowB
  */
 export const caseInsensitiveSort = (rowA, rowB) => {
-  const a = rowA.name.toLowerCase();
-  const b = rowB.name.toLowerCase();
+  const a = resolveKittenResponse(rowA).name.toLowerCase();
+  const b = resolveKittenResponse(rowB).name.toLowerCase();
 
   if (a > b) {
     return 1;
